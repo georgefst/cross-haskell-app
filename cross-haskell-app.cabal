@@ -1,11 +1,4 @@
 cabal-version: 1.12
-
--- This file has been generated from package.yaml by hpack version 0.31.2.
---
--- see: https://github.com/sol/hpack
---
--- hash: e982c59e7c9cae93e87847b0b9718c73778838125f74ba527f3671ec90d98b91
-
 name:           cross-haskell-app
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/cross-haskell-app#readme>
