@@ -1,4 +1,4 @@
-let 
+let
   pkgsNix = import ./nix/pkgs.nix;
 in
 { pkgs ? pkgsNix.native

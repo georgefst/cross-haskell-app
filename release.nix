@@ -9,7 +9,7 @@ let
   appCrossRaspberryPi = hsApp { pkgs = pkgsRaspberryPi; };
   appCrossArmv7l = hsApp { pkgs = pkgsArmv7l; };
 
-  patchForNotNixLinux = {app, name}:
+  patchForNotNixLinux = { app, name }:
     pkgsNative.runCommand "${app.name}-patched" { } ''
       set -eu
       cp ${app}/bin/${name} $out
@@ -18,12 +18,19 @@ let
       chmod -w $out
     '';
 
-in {
+in
+{
   native = appNative.cross-haskell-app.components.exes.cross-haskell-app-exe;
 
   raspberry-pi = appCrossRaspberryPi.cross-haskell-app.components.exes.cross-haskell-app-exe;
-  raspberry-pi-patched = patchForNotNixLinux { app = appCrossRaspberryPi.cross-haskell-app.components.exes.cross-haskell-app-exe; name ="cross-haskell-app-exe"; };
+  raspberry-pi-patched = patchForNotNixLinux {
+    app = appCrossRaspberryPi.cross-haskell-app.components.exes.cross-haskell-app-exe;
+    name = "cross-haskell-app-exe";
+  };
 
   armv7l = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
-  armv7l-patched = patchForNotNixLinux { app = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe; name ="cross-haskell-app-exe"; };
+  armv7l-patched = patchForNotNixLinux {
+    app = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
+    name = "cross-haskell-app-exe";
+  };
 }
