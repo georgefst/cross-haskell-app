@@ -9,14 +9,11 @@ let
   crossRpi = import nixpkgsSrc (nixpkgsArgs // {
     crossSystem = native.lib.systems.examples.raspberryPi;
   });
-  crossArmv7l = import nixpkgsSrc (nixpkgsArgs // {
-    crossSystem = native.lib.systems.examples.raspberryPi;
-  });
 in
 {
   inherit haskellNix;
 
   inherit nixpkgsSrc nixpkgsArgs;
 
-  inherit native crossRpi crossArmv7l;
+  inherit native crossRpi;
 }
