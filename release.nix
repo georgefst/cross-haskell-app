@@ -32,8 +32,6 @@ let
       };
       compiler-nix-name = "ghc8105";
     };
-  appNative = hsApp pkgsNix.native;
-  appCrossArmv7l = hsApp pkgsNix.crossArmv7l;
 
   patchForNotNixLinux = { app, name }:
     pkgsNix.native.runCommand "${app.name}-patched" { } ''
@@ -46,9 +44,9 @@ let
 
 in
 {
-  native = appNative.cross-haskell-app.components.exes.cross-haskell-app-exe;
+  native = (hsApp pkgsNix.native).cross-haskell-app.components.exes.cross-haskell-app-exe;
 
-  armv7l = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
+  armv7l = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
   armv7l-patched = patchForNotNixLinux {
     app = armv7l;
     name = "cross-haskell-app-exe";
