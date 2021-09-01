@@ -17,8 +17,7 @@ let
     in
     {
       inherit native crossArmv7l;
-    }
-  ;
+    };
 
   hsApp = pkgs:
     pkgs.haskell-nix.project {
