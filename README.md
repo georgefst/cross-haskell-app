@@ -13,4 +13,3 @@ Just a simple example of cross-compilation for Raspberry Pi using Nix.
 For the native executable: `./result/bin/cross-haskell-app-exe`
 
 For the cross-compiled executable, qemu can be used. For example: `qemu-arm ./result/bin/cross-haskell-app-exe`
-
