@@ -47,7 +47,7 @@ in
 
   armv7l = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
   armv7l-patched = patchForNotNixLinux {
-    app = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
+    app = armv7l;
     name = "cross-haskell-app-exe";
   };
 }
