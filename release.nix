@@ -8,9 +8,6 @@ let
       nixpkgsArgs = haskellNix.nixpkgsArgs;
 
       native = import nixpkgsSrc nixpkgsArgs;
-      crossRpi = import nixpkgsSrc (nixpkgsArgs // {
-        crossSystem = native.lib.systems.examples.raspberryPi;
-      });
       crossArmv7l = import nixpkgsSrc (nixpkgsArgs // {
         crossSystem = native.lib.systems.examples.raspberryPi;
       });
@@ -24,7 +21,6 @@ let
     }
   ;
   pkgsNative = pkgsNix.native;
-  pkgsRaspberryPi = pkgsNix.crossRpi;
   pkgsArmv7l = pkgsNix.crossArmv7l;
 
   hsApp =
@@ -38,7 +34,6 @@ let
       compiler-nix-name = "ghc8105";
     };
   appNative = hsApp { pkgs = pkgsNative; };
-  appCrossRaspberryPi = hsApp { pkgs = pkgsRaspberryPi; };
   appCrossArmv7l = hsApp { pkgs = pkgsArmv7l; };
 
   patchForNotNixLinux = { app, name }:
@@ -53,12 +48,6 @@ let
 in
 {
   native = appNative.cross-haskell-app.components.exes.cross-haskell-app-exe;
-
-  raspberry-pi = appCrossRaspberryPi.cross-haskell-app.components.exes.cross-haskell-app-exe;
-  raspberry-pi-patched = patchForNotNixLinux {
-    app = appCrossRaspberryPi.cross-haskell-app.components.exes.cross-haskell-app-exe;
-    name = "cross-haskell-app-exe";
-  };
 
   armv7l = appCrossArmv7l.cross-haskell-app.components.exes.cross-haskell-app-exe;
   armv7l-patched = patchForNotNixLinux {
