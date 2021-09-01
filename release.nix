@@ -23,9 +23,7 @@ let
   pkgsNative = pkgsNix.native;
   pkgsArmv7l = pkgsNix.crossArmv7l;
 
-  hsApp =
-    { pkgs ? pkgsNix.native
-    }:
+  hsApp = pkgs:
     pkgs.haskell-nix.project {
       src = pkgs.haskell-nix.haskellLib.cleanGit {
         src = ./.;
@@ -33,8 +31,8 @@ let
       };
       compiler-nix-name = "ghc8105";
     };
-  appNative = hsApp { pkgs = pkgsNative; };
-  appCrossArmv7l = hsApp { pkgs = pkgsArmv7l; };
+  appNative = hsApp pkgsNative;
+  appCrossArmv7l = hsApp pkgsArmv7l;
 
   patchForNotNixLinux = { app, name }:
     pkgsNative.runCommand "${app.name}-patched" { } ''
