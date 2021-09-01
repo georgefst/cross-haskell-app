@@ -37,11 +37,11 @@ let
       chmod -w $out
     '';
 
+  native = (hsApp pkgsNix.native).cross-haskell-app.components.exes.cross-haskell-app-exe;
+  armv7l = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
 in
 {
-  native = (hsApp pkgsNix.native).cross-haskell-app.components.exes.cross-haskell-app-exe;
-
-  armv7l = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
+  inherit native armv7l;
   armv7l-patched = patchForNotNixLinux {
     app = armv7l;
     name = "cross-haskell-app-exe";
