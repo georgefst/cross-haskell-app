@@ -16,10 +16,6 @@ let
       });
     in
     {
-      inherit haskellNix;
-
-      inherit nixpkgsSrc nixpkgsArgs;
-
       inherit native crossArmv7l;
     }
   ;
