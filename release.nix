@@ -20,8 +20,6 @@ let
       inherit native crossRpi crossArmv7l;
     }
   ;
-  pkgsNative = pkgsNix.native;
-  pkgsArmv7l = pkgsNix.crossArmv7l;
 
   hsApp = pkgs:
     pkgs.haskell-nix.project {
@@ -31,15 +29,15 @@ let
       };
       compiler-nix-name = "ghc8105";
     };
-  appNative = hsApp pkgsNative;
-  appCrossArmv7l = hsApp pkgsArmv7l;
+  appNative = hsApp pkgsNix.native;
+  appCrossArmv7l = hsApp pkgsNix.crossArmv7l;
 
   patchForNotNixLinux = { app, name }:
-    pkgsNative.runCommand "${app.name}-patched" { } ''
+    pkgsNix.native.runCommand "${app.name}-patched" { } ''
       set -eu
       cp ${app}/bin/${name} $out
       chmod +w $out
-      ${pkgsNative.patchelf}/bin/patchelf --set-interpreter /lib/ld-linux-armhf.so.3 --set-rpath /lib:/usr/lib $out
+      ${pkgsNix.native.patchelf}/bin/patchelf --set-interpreter /lib/ld-linux-armhf.so.3 --set-rpath /lib:/usr/lib $out
       chmod -w $out
     '';
 
