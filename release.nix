@@ -28,23 +28,8 @@ let
       compiler-nix-name = "ghc8105";
     };
 
-  patchForNotNixLinux = { app, name }:
-    pkgsNix.native.runCommand "${app.name}-patched" { } ''
-      set -eu
-      cp ${app}/bin/${name} $out
-      chmod +w $out
-      ${pkgsNix.native.patchelf}/bin/patchelf --set-interpreter /lib/ld-linux-armhf.so.3 --set-rpath /lib:/usr/lib $out
-      chmod -w $out
-    '';
-
-  native = (hsApp pkgsNix.native).cross-haskell-app.components.exes.cross-haskell-app-exe;
-  armv7l = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
 in
 {
-  inherit native;
-  arm = armv7l;
-  armv-patched = patchForNotNixLinux {
-    app = armv7l;
-    name = "cross-haskell-app-exe";
-  };
+  native = (hsApp pkgsNix.native).cross-haskell-app.components.exes.cross-haskell-app-exe;
+  arm = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
 }
