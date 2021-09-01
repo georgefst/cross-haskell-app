@@ -20,7 +20,7 @@ let
 
       inherit nixpkgsSrc nixpkgsArgs;
 
-      inherit native crossRpi crossArmv7l;
+      inherit native crossArmv7l;
     }
   ;
 
