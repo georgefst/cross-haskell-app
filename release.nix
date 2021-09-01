@@ -41,8 +41,9 @@ let
   armv7l = (hsApp pkgsNix.crossArmv7l).cross-haskell-app.components.exes.cross-haskell-app-exe;
 in
 {
-  inherit native armv7l;
-  armv7l-patched = patchForNotNixLinux {
+  inherit native;
+  arm = armv7l;
+  armv-patched = patchForNotNixLinux {
     app = armv7l;
     name = "cross-haskell-app-exe";
   };
